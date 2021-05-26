@@ -1,0 +1,38 @@
+#PROGRAMA PARA CALCULAR A QUANTIDADE DE DIAGONAIS DE UM POLÍGONO CONVEXO
+
+print(".+***************************+.")
+print(".+***************************+.")
+print(".+***************************+.")
+n = input("Digite a quantidade de lados do polígono: ")
+n = int(n)
+d = int((n *(n - 3))//2)
+print("O polígono de {} lados possui {} diagonais.".format(n, d))
+print(".+***************************+.")
+print(".+***************************+.")
+print(".+***************************+.")
+    
+#PROGRAMA PARA CALCULAR A SOMA DOS ÂNGULOS INTERNO DE UM POLÍGONO CONVEXO
+
+
+m = int(input("Digite a quantidade de lados do polígono: "))
+s = (m-2)*180
+print("A soma dos ângulos interno do polígono de {} lados é {}º.".format(m, s))
+print(".+***************************+.")
+print(".+***************************+.")
+print(".+***************************+.")
+print("A soma dos ângulos externos sempre é 360° para qualquer polígono convexo.")
+
+
+#PROGRAMA PARA CALCULAR A QUANTIDADE DE DIAGONAIS TRAÇADAS A PARTIR DE UM VÉRTICE
+
+
+print(".+***************************+.")
+print(".+***************************+.")
+print("##########ATENÇÃO##########")
+print("Para polígonos de lados iguais a 3 e 4 não calcula-se por este programa")
+
+n = int(input("Digite a quantidade de lados do polígono convexo: "))
+
+diagonais = n - 3
+
+print("Partindo de um vértice podemos traçar", diagonais, ".")
