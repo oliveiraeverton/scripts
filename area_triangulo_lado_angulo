@@ -1,0 +1,11 @@
+#PROGRAMA PARA CALCULAR A ÁREA DO TRIÂNGULO EM FUNÇÃO DE DOIS LADOS E O ÂNGULO ENTRE ELES.
+
+import math
+
+
+a, b, angulo = map(float, input("Digite os dois lados e o ângulo em graus, separados por espaço: ").split())
+
+
+s = ((1/2))*a*b*(math.sin(math.radians(angulo)))
+
+print("A área do triângulo é {:.03f}".format(s))
