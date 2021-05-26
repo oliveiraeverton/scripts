@@ -1,0 +1,11 @@
+#PROGRAMA PARA CALCULAR A ÁREA DO TRIÂNGULO EM FUNÇÃO DOS LADOS.
+
+
+
+a, b, c = map(float, input().split()) #DIGITAR OS TRÊS LADOS DO TRIÂNGULO
+
+p = (a + b + c)/2 #PERÍMETRO
+
+s = (p *(p - a) * (p - b) * (p - c))**(1/2) #ÁREA
+
+print("A área do triângulo é: {:.0f}".format(s))
