@@ -1,5 +1,5 @@
-"""Exercício 3
-  Escreva um programa que receba um número inteiro na entrada, calcule e imprima a soma dos dígitos deste número na saída"""
+"""Exercício 2
+Receba um número inteiro positivo na entrada e imprima os  n n primeiros números ímpares naturais."""
 
 n=int(input("Digite o valor de n: "))
 a=0
