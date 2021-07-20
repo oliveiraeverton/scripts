@@ -2,7 +2,7 @@ def usuario_escolhe_jogada(n, m):
   
   while True:
     retirar_pedras = int(input("Quantas peças você vai tirar? "))
-    if 0 < retirar_pedras <= m and retirar_pedras<0:
+    if 0 < retirar_pedras <= m or retirar_pedras<0:
       break
     print("\nOops! Jogada inválida! Tente de novo.\n")
     
