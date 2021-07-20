@@ -120,8 +120,17 @@ for i in range(1, jogadas+1, 1):
    
     if n <= 0:
       break
-    
-print('''**** Final do campeonato! ****
+      
 
+      
+
+      
+      
+      
+if modo == 2:
+  print('''**** Final do campeonato! ****
+  
 Placar: Você 0 X 3 Computador''')
 
+else:
+  print("**** Final da partida isolada! **** \n\nPlacar: Você 0 x 1 Computador")
