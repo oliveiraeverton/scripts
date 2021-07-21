@@ -12,14 +12,14 @@ def usuario_escolhe_jogada(n, m):
     if n == 1:
       print("Agora resta apenas uma peça no tabuleiro.\n")
     else:
-      print(f"Agora resta apenas {n} peças no tabuleiro.\n")
+      print(f"Agora resta apenas {n-retirar_pedras} peças no tabuleiro.\n")
     
   else:
     print(f"Você tirou {retirar_pedras} peças.")
     if n == 1:
       print("Agora resta apenas uma peça no tabuleiro.\n")
     else:
-      print(f"Agora resta apenas {n} peças no tabuleiro.\n")
+      print(f"Agora resta apenas {n-retirar_pedras} peças no tabuleiro.\n")
 
   return retirar_pedras
 
