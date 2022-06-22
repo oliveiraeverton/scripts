@@ -1,3 +1,11 @@
+/* Estruturas de Dados - Trabalho pratico
+
+Professor: Diego P. Rubert
+Aluno(s): Everton de Oliveira 2021.1906.022-0
+          Vitor Oliveira Resende Brandão 2021.1906.027-1
+
+*/
+
 #include <cstdio>
 #include <string>
 #include <iostream>
@@ -67,9 +75,8 @@ private:
 int main(void)
 {
   ArvBinBusca T; // construtor ArvBinBusca()
-  //nao esquecer que no lugar do um é zero
-  int v[] = {10, 25, 0, 16, 20, 9, 15, 6, 14, 7, 18, 12, 22, 19, 3, 13};
-  //int v[] = {50,40,60,10,20,30,22,11,4,6,7,9,8,1,100,99,51,52,53};
+  //int v[] = {10, 25, 0, 16, 20, 9, 15, 6, 14, 7, 18, 12, 22, 19, 3, 13};
+  int v[] ={1,2,3,4,5,6,7,8,9};
   for (const auto &x : v)
     T.insere(x); //TODO: implemente primeiro o metodo insere
   
@@ -77,8 +84,6 @@ int main(void)
   T.escreve();
   printf("Valores de T em ordem crescente: ");
   T.escreve_ordenado(); //TODO: implemente depois escreve_ordenado
-
-  //return 0; //TODO: remover após implementar minimo, maximo, sucessor, predecessor
 
   No *raiz = T.get_raiz();
   printf("Raiz: ");
@@ -103,33 +108,14 @@ int main(void)
   printf("Máximo: ");
   maximo->escreve("\n");
   
-
-  //return 0; //TODO: remover após implementar remoção
-
-  T.remove(0); // Caso 1
-  T.remove(13); // Caso 2
-  T.remove(10); // Caso 3b + 3a
-  //int v[] = {10, 25, 16, 20, 9, 15, 6, 14, 7, 18, 12, 22, 19, 3, 13};
-  /*T.remove(25);
-  T.remove(16);
-  T.remove(20);
-  T.remove(9);
-  T.remove(15);
-  T.remove(6);
-  T.remove(7);
-  T.remove(18);
-  T.remove(12);
-  T.remove(22);
-  T.remove(19);
-  T.remove(13);
-  T.remove(3);
-  T.remove(14);*/
-
+  //T.remove(0); // Caso 1
+  //T.remove(13); // Caso 2
+  //T.remove(10); // Caso 3b + 3a
+  
 
   printf("T:\n");
   T.escreve();
 
-  //return 0; //TODO: remover após implementar construtor de cópia e operador de atribuição
   
   ArvBinBusca T2(T); // construtor de cópia
   T2.insere(30);
@@ -155,6 +141,53 @@ int main(void)
   return 0;
 }
 
+
+/////////////////////////////////////////////////ABAIXO OKAY NAO MEXER
+//***********************************
+//*** IMPLEMENTAÇÕES DA CLASSE NO ***
+//***********************************
+
+No::No(const int chave) :
+  chave(chave),
+  pai(NULL),
+  esq(NULL),
+  dir(NULL) {
+}
+
+void No::escreve(const char *sep) {
+  printf("%2d%s", chave, sep);
+}
+
+//********************************************
+//*** IMPLEMENTAÇÕES DA CLASSE ARVBINBUSCA ***
+//********************************************
+
+ArvBinBusca::ArvBinBusca() {
+  raiz = NULL;
+}
+
+ArvBinBusca::ArvBinBusca(const ArvBinBusca& outro) {
+  copia(outro);
+}
+
+ArvBinBusca::~ArvBinBusca() {
+  limpa();
+}
+
+ArvBinBusca& ArvBinBusca::operator=(const ArvBinBusca& outro) {
+  limpa();
+  copia(outro);
+  return *this;
+}
+
+void ArvBinBusca::escreve_ordenado() {
+  escreve_ordenado(raiz);
+  putchar('\n');
+}
+
+
+///////////////////////////VOLTAR AS FUNCOES PARA CÁ ABAIXO
+
 void ArvBinBusca::escreve_ordenado(No *x) {
 
     if(x != NULL){
@@ -162,7 +195,6 @@ void ArvBinBusca::escreve_ordenado(No *x) {
         printf("%i ", x->chave);
         escreve_ordenado(x->dir);
     }
-  //TODO: implementar (escrever em percurso em-ordem em uma única linha)
 }
 
 No *ArvBinBusca::busca(No *x, int k) {
@@ -176,7 +208,6 @@ No *ArvBinBusca::busca(No *x, int k) {
     }else{
         return busca(x->dir, k);
     }
-  //TODO: implementar
 }
 
 No *ArvBinBusca::minimo(No *x) {
@@ -348,51 +379,8 @@ void ArvBinBusca::copia(No *dest, No *orig) {
 }
 
 
-/////////////////////////////////////////////////ABAIXO OKAY NAO MEXER
-//***********************************
-//*** IMPLEMENTAÇÕES DA CLASSE NO ***
-//***********************************
-
-No::No(const int chave) :
-  chave(chave),
-  pai(NULL),
-  esq(NULL),
-  dir(NULL) {
-}
-
-void No::escreve(const char *sep) {
-  printf("%2d%s", chave, sep);
-}
-
-//********************************************
-//*** IMPLEMENTAÇÕES DA CLASSE ARVBINBUSCA ***
-//********************************************
-
-ArvBinBusca::ArvBinBusca() {
-  raiz = NULL;
-}
-
-ArvBinBusca::ArvBinBusca(const ArvBinBusca& outro) {
-  copia(outro);
-}
-
-ArvBinBusca::~ArvBinBusca() {
-  limpa();
-}
-
-ArvBinBusca& ArvBinBusca::operator=(const ArvBinBusca& outro) {
-  limpa();
-  copia(outro);
-  return *this;
-}
-
-void ArvBinBusca::escreve_ordenado() {
-  escreve_ordenado(raiz);
-  putchar('\n');
-}
 
 
-///////////////////////////VOLTAR AS FUNCOES PARA CÁ ABAIXO
 //////////////////////////
 void ArvBinBusca::escreve() {
   escreve("", raiz);
