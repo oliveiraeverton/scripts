@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <string>
-
+#include <iostream>
 using std::string;
 
 class No {
@@ -67,8 +67,9 @@ private:
 int main(void)
 {
   ArvBinBusca T; // construtor ArvBinBusca()
-  int v[] = {10,10, 25, 0, 16, 20, 9, 15, 6, 14, 7, 18, 12, 22, 19, 3, 13};
-  
+  //nao esquecer que no lugar do um é zero
+  int v[] = {10, 25, 0, 16, 20, 9, 15, 6, 14, 7, 18, 12, 22, 19, 3, 13};
+  //int v[] = {50,40,60,10,20,30,22,11,4,6,7,9,8,1,100,99,51,52,53};
   for (const auto &x : v)
     T.insere(x); //TODO: implemente primeiro o metodo insere
   
@@ -102,16 +103,33 @@ int main(void)
   printf("Máximo: ");
   maximo->escreve("\n");
   
-  
+
   //return 0; //TODO: remover após implementar remoção
+
   T.remove(0); // Caso 1
   T.remove(13); // Caso 2
   T.remove(10); // Caso 3b + 3a
+  //int v[] = {10, 25, 16, 20, 9, 15, 6, 14, 7, 18, 12, 22, 19, 3, 13};
+  /*T.remove(25);
+  T.remove(16);
+  T.remove(20);
+  T.remove(9);
+  T.remove(15);
+  T.remove(6);
+  T.remove(7);
+  T.remove(18);
+  T.remove(12);
+  T.remove(22);
+  T.remove(19);
+  T.remove(13);
+  T.remove(3);
+  T.remove(14);*/
+
 
   printf("T:\n");
   T.escreve();
 
-  //return 0; //TODO: remover após implementar construtor de cópia e operador de atribuição
+  /*return 0; //TODO: remover após implementar construtor de cópia e operador de atribuição
   
   ArvBinBusca T2(T); // construtor de cópia
   T2.insere(30);
@@ -134,7 +152,7 @@ int main(void)
   printf("T3:\n");
   T3.escreve();
   
-  return 0;
+  return 0;*/
 }
 
 void ArvBinBusca::escreve_ordenado(No *x) {
@@ -201,8 +219,8 @@ No *ArvBinBusca::predecessor(No *x) {
     }
     No* y;
     y = x->pai;
-
-    while(y != NULL && x == y->dir){
+    //alterei y->dir para y->esq
+    while(y != NULL && x == y->esq){
         x = y;
         y = y->pai;
     }
@@ -218,7 +236,7 @@ void ArvBinBusca::insere(No *z) {
     //printf("%d -", z->chave);
     while(x != NULL){
         y = x;
-
+        //PARA VERIFICAR SE A CHAVE JÁ EXISTE NA ÁRVORE, CASO EXISTA NÃO PODE SER INSERIDA.
         if(z->chave==x->chave){
                 return;
             }
@@ -234,8 +252,8 @@ void ArvBinBusca::insere(No *z) {
     if(y==NULL){
         
         //printf("RAIZ %d\n", z->chave);
-        z->pai = NULL;
         raiz = z;
+        z->pai = NULL;
         //raiz->dir = NULL;
         //raiz->esq = NULL;
         
@@ -253,73 +271,66 @@ void ArvBinBusca::insere(No *z) {
 }
 
 void ArvBinBusca::transplante(No *u, No *v) {
-  if(u->pai == NULL){
+  //tentativa 1
+  if(u->pai==NULL){
     raiz = v;
   }else{
     if(u == u->pai->esq){
-        u->pai->esq = v;
+      u->pai->esq = v;
     }else{
-        u->pai->dir = v;
+      u->pai->dir = v;
     }
   }
-  if(v != NULL){
+  if(v!=NULL){
     v->pai = u->pai;
   }
+  
   //TODO: implementar
 }
 
 void ArvBinBusca::remove(No *z) {
-    No* y;
-    if(z->esq == NULL){
-        transplante(z, z->dir);
+  No* y = NULL;
+  if(z->esq == NULL){
+    transplante(z, z->dir);
+  }else{
+    if(z->dir == NULL){
+      transplante(z, z->esq);
     }else{
-        if(z->dir == NULL){
-            transplante(z, z->esq);
-        }else{
-            y = minimo(z->dir);
-            if(y->pai != z){
-                transplante(y, y->dir);
-                y->dir = z->dir;
-                y->dir->pai = y;
-            }
-            transplante(z, y);
-            y->esq = z->esq;
-            y->esq->pai = y; 
-        }        
-    }       
+      y = minimo(z->dir);
+      if(y->pai != z){
+        transplante(y, y->dir);
+        y->dir = z->dir;
+        y->dir->pai = y;
+      }
+      transplante(z, y);
+      y->esq = z->esq;
+      y->esq->pai = y;
+    }
+  }
+  
   //TODO: implementar
 }
 
 void ArvBinBusca::limpa(No *x) {
-  if(x->dir==NULL && x->esq==NULL){
-    delete x;
-  }else if(x->dir!=NULL){
-    limpa(x->dir);
-  }else{
-    limpa(x->esq);
+  if(x == NULL){
+    return;
   }
-  //TODO: implementar
+  limpa(x->esq);
+  limpa(x->dir);
+  free(x);
+  x = NULL;
+    
+    //TODO: implementar
 }
 
 void ArvBinBusca::copia(No *dest, No *orig) {
-  No* aux;
-  aux = dest;
-
-  if(aux->dir==NULL && aux->esq==NULL){
-    insere(aux->chave);
+  No* aux=NULL;
+  if(dest == NULL){
+    return;
   }
-  
-  /*if(aux->esq!=NULL){
-    while(aux->esq!=NULL){
-      insere(aux->chave);
-      aux = aux->esq;
-    }
-    aux = dest;*/
-    
-  //TODO: implementar 
-  }
-  
-
+  insere(dest->chave)
+  //TODO: implementar
+}
 
 
 /////////////////////////////////////////////////ABAIXO OKAY NAO MEXER
@@ -379,7 +390,7 @@ void ArvBinBusca::escreve(const string& prefixo, No *x) {
   bool ehDireito = x->pai and x->pai->dir == x;
   bool temIrmaoEsq = x->pai and x->pai->esq;
   
-  printf(prefixo.c_str());
+  std::cout << prefixo.c_str();
   printf(ehDireito and temIrmaoEsq ? "├──" : "└──" );
 
   if (x->pai == NULL) // raiz
@@ -413,7 +424,6 @@ No *ArvBinBusca::maximo() {
 }
 
 bool ArvBinBusca::remove(int chave) {
-  
   No *z = busca(raiz, chave);
   if (z == NULL)
     return false;
