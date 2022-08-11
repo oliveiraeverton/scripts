@@ -12,7 +12,6 @@ int main(){
     }
     int j = 1;
     for(int i = 0; i < n-1; i++){
-        //printf("\ncomparando v[%d] < v[%d] == %d", i, j, v[i] > v[j]);
         if(v[i]>=v[j]){
             printf("falso");
             linear = 1;
